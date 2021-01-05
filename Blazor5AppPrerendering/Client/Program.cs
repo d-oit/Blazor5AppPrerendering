@@ -27,6 +27,8 @@ namespace Blazor5AppPrerendering.Client
             builder.Services.AddApiAuthorization();
 
             await builder.Build().RunAsync();
+
+            
         }
     }
 }
