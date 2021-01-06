@@ -1,3 +1,4 @@
+using Blazor5AppPrerendering.Shared.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,8 @@ namespace Blazor5AppPrerendering.Client
 
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("Blazor5AppPrerendering.ServerAPI"));
+
+            builder.Services.AddScoped<IPreRenderService, PreRenderService>();
 
             builder.Services.AddApiAuthorization();
 

@@ -1,8 +1,11 @@
 ﻿@inject NavigationManager Navigation
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Blazor5AppPrerendering.Shared.Services
 @code {
     protected override void OnInitialized()
     {
+        // Check first-chance exception configuration https://github.com/dotnet/aspnetcore/issues/13582
         Navigation.NavigateTo($"authentication/login?returnUrl={Uri.EscapeDataString(Navigation.Uri)}");
+
     }
 }

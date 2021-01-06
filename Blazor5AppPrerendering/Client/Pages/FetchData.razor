@@ -2,8 +2,10 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using Blazor5AppPrerendering.Shared
+@using Blazor5AppPrerendering.Shared.Services
 @attribute [Authorize]
 @inject HttpClient Http
+@inject IPreRenderService  PreRenderService
 
 <h1>Weather forecast</h1>
 
@@ -43,13 +45,16 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        try
+        if (PreRenderService.IsPreRendering == false)
         {
-            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
-        }
-        catch (AccessTokenNotAvailableException exception)
-        {
-            exception.Redirect();
+            try
+            {
+                forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+            }
+            catch (AccessTokenNotAvailableException exception)
+            {
+                exception.Redirect();
+            }
         }
     }
 

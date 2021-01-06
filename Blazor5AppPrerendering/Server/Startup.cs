@@ -1,5 +1,6 @@
 using Blazor5AppPrerendering.Server.Data;
 using Blazor5AppPrerendering.Server.Models;
+using Blazor5AppPrerendering.Shared.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -47,9 +48,16 @@ namespace Blazor5AppPrerendering.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+
             services.AddScoped<AuthenticationStateProvider,
                  ServerAuthenticationStateProvider>();
             services.AddScoped<SignOutSessionStateManager>();
+
+
+            services.AddHttpContextAccessor();
+            services.AddScoped<IPreRenderService, PreRenderService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
